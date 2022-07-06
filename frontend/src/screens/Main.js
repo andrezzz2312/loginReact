@@ -1,6 +1,8 @@
 import React from 'react'
+import {Link, useNavigate} from 'react-router-dom'
 
 function Main() {
+  const navigate = useNavigate()
   return (
     <main>
       <div className='menu'>
@@ -19,6 +21,20 @@ function Main() {
         <button>
           <i className='fa-solid fa-gear'></i>
           Configuracion
+        </button>
+        <Link to='/register'>
+          <button>
+            <i className='fa-solid fa-gear'></i>
+            Nuevo usuario
+          </button>
+        </Link>
+        <button
+          onClick={() => {
+            localStorage.removeItem('userInfo')
+            navigate('/')
+          }}
+        >
+          Salir
         </button>
       </div>
       <div className='context'>

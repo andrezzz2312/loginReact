@@ -9,7 +9,7 @@
 * {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-
+  font-size: 1rem;
   color: white;
 }
 
@@ -18,18 +18,23 @@ button {
   background: #3b3b3b;
   border: none;
   cursor: pointer;
+  width: 100%;
 }
-.form button {
+.loginForm button {
   background-color: white;
   color: black;
 }
-.form button:hover {
+form button:hover {
   background-color: #303f9f;
   color: white;
-  cursor: pointer;
 }
+
 button:active {
   box-shadow: none;
+}
+.browseButton {
+  background-color: #3b3b3b;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 .loginButton {
   margin-top: 0.5rem;
@@ -43,6 +48,7 @@ button:active {
   width: 50%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -50,20 +56,21 @@ button:active {
   width: 50%;
   height: 100vh;
 }
-.form {
+form {
   display: flex;
+  flex-direction: column;
+}
+.loginForm {
   gap: 1rem;
   width: 50%;
-  flex-direction: column;
   justify-content: center;
-  margin-left: -15%;
-  margin-bottom: 20%;
+  margin-bottom: 2rem;
   background-color: #212121;
   border-radius: 1.5rem;
   padding: 3rem;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-.form input {
+.loginForm input {
   width: 75%;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -71,7 +78,7 @@ button:active {
   color: white;
   background-color: #515151;
 }
-.form input::placeholder {
+.loginForm input::placeholder {
   color: #a7a7a7;
 }
 .three {
@@ -83,7 +90,9 @@ main {
   flex-direction: row;
   width: 100vw;
   height: 100vh;
-  background-color: hsl(227, 41%, 20%);
+  background-color: #1e2748;
+  justify-content: center;
+  align-items: center;
 }
 .menu {
   display: flex;
@@ -96,7 +105,39 @@ main {
   justify-content: center;
   align-items: center;
   width: 80%;
+  height: 100vh;
   background-color: #515151;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+input {
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  color: black;
+}
+.content .col {
+  margin-top: 1rem;
+}
+.content .col input {
+  width: 50%;
+}
+.content .col:first-child {
+  margin-top: 0;
 }
 
 .modalHours {
