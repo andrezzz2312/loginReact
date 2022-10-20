@@ -12,7 +12,14 @@ import Loading from '../components/Header/Loading'
 import ErrorMessage from '../components/Header/ErrorMessage'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/userActions'
-import { Container, Grid, TextField } from '@mui/material'
+import {
+	Container,
+	createTheme,
+	CssBaseline,
+	Grid,
+	TextField,
+	ThemeProvider,
+} from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import LoadingButton from '@mui/lab/LoadingButton'
 
@@ -95,70 +102,79 @@ const Login = () => {
 		console.log(loading)
 	}, [loading])
 
+	const darkTheme = createTheme({
+		palette: {
+			mode: 'dark',
+		},
+	})
 	return (
-		<main>
-			<Container
-				columns={{ sm: 6 }}
-				sx={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'center',
-				}}
-			>
-				<Card sx={{ maxWidth: 300, boxShadow: 3 }}>
-					<CardContent>
-						<form action='' onSubmit={submitHandler}>
-							<Grid container spacing={2}>
-								<Grid item xs={12}>
-									<TextField
-										error={error}
-										fullWidth
-										label='Email'
-										variant='outlined'
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										type='email'
-									/>
+		<ThemeProvider theme={darkTheme}>
+			<CssBaseline />
+			<main>
+				<Container
+					columns={{ sm: 6 }}
+					sx={{
+						display: 'flex',
+						flexDirection: 'row',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Card sx={{ maxWidth: 300, boxShadow: 3 }}>
+						<CardContent>
+							<form action='' onSubmit={submitHandler}>
+								<Grid container spacing={2}>
+									<Grid item xs={12}>
+										<TextField
+											error={error}
+											fullWidth
+											label='Email'
+											variant='outlined'
+											value={email}
+											onChange={(e) => setEmail(e.target.value)}
+											type='email'
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											error={error}
+											fullWidth
+											label='Contrasena'
+											variant='outlined'
+											value={password}
+											onChange={(e) => setPassword(e.target.value)}
+											type='password'
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<LoadingButton
+											loading={loading}
+											loadingPosition='end'
+											size='medium'
+											variant='contained'
+											type='submit'
+											endIcon={<SendIcon />}
+										>
+											Login
+										</LoadingButton>
+									</Grid>
 								</Grid>
-								<Grid item xs={12}>
-									<TextField
-										error={error}
-										fullWidth
-										label='Contrasena'
-										variant='outlined'
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-										type='password'
-									/>
-								</Grid>
-								<Grid item xs={12}>
-									<LoadingButton
-										loading={loading}
-										loadingPosition='end'
-										size='medium'
-										variant='contained'
-										type='submit'
-										endIcon={<SendIcon />}
-									>
-										Login
-									</LoadingButton>
-								</Grid>
-							</Grid>
-						</form>
-					</CardContent>
-				</Card>
+							</form>
+						</CardContent>
+					</Card>
 
-				{error && (
-					<ErrorMessage color='rgb(252, 41, 41)' fontColor='white'>
-						{error}
-					</ErrorMessage>
-				)}
-			</Container>
+					{error && (
+						<ErrorMessage color='rgb(252, 41, 41)' fontColor='white'>
+							{error}
+						</ErrorMessage>
+					)}
+				</Container>
 
-			<Container className='right' sx={6}>
-				<div className='three'></div>
-			</Container>
-		</main>
+				<Container className='right' sx={6}>
+					<div className='three'></div>
+				</Container>
+			</main>
+		</ThemeProvider>
 	)
 }
 
