@@ -12,6 +12,7 @@ const ErrorMessage = ({ color = 'white', fontColor = 'black', children }) => {
 				backgroundColor: color,
 				padding: '0.5rem',
 				borderRadius: '.5rem',
+
 				color: fontColor,
 			}}
 		>

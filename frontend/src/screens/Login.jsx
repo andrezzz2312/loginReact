@@ -97,8 +97,14 @@ const Login = () => {
 
 	return (
 		<main>
-			<Container sx={6}></Container>
-			<div className='left'>
+			<Container
+				columns={{ sm: 6 }}
+				sx={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'center',
+				}}
+			>
 				<Card sx={{ maxWidth: 300, boxShadow: 3 }}>
 					<CardContent>
 						<form action='' onSubmit={submitHandler}>
@@ -147,10 +153,11 @@ const Login = () => {
 						{error}
 					</ErrorMessage>
 				)}
-			</div>
-			<div className='right'>
+			</Container>
+
+			<Container className='right' sx={6}>
 				<div className='three'></div>
-			</div>
+			</Container>
 		</main>
 	)
 }
