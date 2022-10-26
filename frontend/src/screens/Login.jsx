@@ -170,7 +170,7 @@ const Login = () => {
 					)}
 				</Container>
 
-				<Container className='right' sx={6}>
+				<Container className='right' xs={6}>
 					<div className='three'></div>
 				</Container>
 			</main>
