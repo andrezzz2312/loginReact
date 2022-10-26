@@ -75,36 +75,6 @@ function Main() {
 				</Grid>
 			</Grid>
 		</ThemeProvider>
-
-		// <main>
-		// 	<div className='menu'>
-		// 		<Link to='/perms'>
-		// 			<button className='mainButton'>Permisos de horas extras</button>
-		// 		</Link>
-
-		// 		{userInfo.isAdmin ? (
-		// 			<Link to='/register'>
-		// 				<button className='mainButton'>
-		// 					<i className='fa-solid fa-gear'></i>
-		// 					Nuevo usuario
-		// 				</button>
-		// 			</Link>
-		// 		) : (
-		// 			''
-		// 		)}
-
-		// 		<button className='mainButton' onClick={logoutHandler}>
-		// 			Salir
-		// 		</button>
-		// 	</div>
-		// 	<div className='context'>
-		// 		<div className='modalHours'>
-		// 			<div className='title'>Operaciones</div>
-
-		// 			<div className='subtitle'>PERSON</div>
-		// 		</div>
-		// 	</div>
-		// </main>
 	)
 }
 

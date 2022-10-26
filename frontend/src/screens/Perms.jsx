@@ -19,7 +19,7 @@ import {
 	Typography,
 	DialogActions,
 } from '@mui/material'
-import { cyan, teal, grey } from '@mui/material/colors'
+import { cyan, teal, grey, white } from '@mui/material/colors'
 
 const Perms = () => {
 	const darkTheme = createTheme({
@@ -55,67 +55,86 @@ const Perms = () => {
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />
-
-			<Container maxWidth='xl' sx={{ paddingTop: 1 }}>
-				<Card sx={{ boxShadow: 3 }} columns={{ sx: 12 }}>
-					<CardContent>
-						<CardHeader title='Permisos'></CardHeader>
-						<CardActions sx={{ marginBottom: 2 }}>
-							<Button
-								component={Link}
-								to='/createnote'
-								variant='contained'
-								color='success'
-							>
-								Create new note
-							</Button>
-						</CardActions>
-
-						<Card
-							sx={{
-								backgroundColor: grey[800],
-
-								padding: 2,
-							}}
-						>
-							<Box
-								sx={{
-									display: 'flex',
-									flexDirection: 'row',
-									alignItems: 'center',
-									justifyContent: 'space-between',
-									alignContent: 'center',
-								}}
-							>
-								<Typography>Perm1</Typography>
-								<Grid sx={{ display: 'flex', gap: 2 }}>
+			<Container maxWidth='xl'>
+				<Box sx={{ pt: 2 }}>
+					<Card sx={{ boxShadow: 3 }} columns={{ sx: 12 }}>
+						<CardContent>
+							<CardHeader
+								title='Permisos'
+								action={
 									<Button
 										component={Link}
+										to='/'
+										variant='contained'
 										sx={{
-											backgroundColor: teal[500],
+											backgroundColor: grey[700],
 											color: '#fff',
 											'&:hover': {
-												backgroundColor: teal[800],
+												backgroundColor: grey[800],
 											},
 										}}
-										to='/createnote'
-										variant='contained'
 									>
-										EDIT NOTE
+										Back
 									</Button>
-									<Button
-										component={Link}
-										to='/createnote'
-										variant='contained'
-										color='error'
-									>
-										delete note
-									</Button>
-								</Grid>
-							</Box>
-						</Card>
-					</CardContent>
-				</Card>
+								}
+							></CardHeader>
+
+							<CardActions sx={{ marginBottom: 2 }}>
+								<Button
+									component={Link}
+									to='/createnote'
+									variant='contained'
+									color='success'
+								>
+									Create new note
+								</Button>
+							</CardActions>
+
+							<Card
+								sx={{
+									backgroundColor: grey[800],
+									padding: 2,
+								}}
+							>
+								<Box
+									sx={{
+										display: 'flex',
+										flexDirection: 'row',
+										alignItems: 'center',
+										justifyContent: 'space-between',
+										alignContent: 'center',
+									}}
+								>
+									<Typography>Perm1</Typography>
+									<Grid sx={{ display: 'flex', gap: 2 }}>
+										<Button
+											component={Link}
+											sx={{
+												backgroundColor: teal[500],
+												color: '#fff',
+												'&:hover': {
+													backgroundColor: teal[800],
+												},
+											}}
+											to='/createnote'
+											variant='contained'
+										>
+											EDIT NOTE
+										</Button>
+										<Button
+											component={Link}
+											to='/createnote'
+											variant='contained'
+											color='error'
+										>
+											delete note
+										</Button>
+									</Grid>
+								</Box>
+							</Card>
+						</CardContent>
+					</Card>
+				</Box>
 			</Container>
 			{/* {notes.map((note) => (
 						<div className='card'>
