@@ -211,10 +211,26 @@ const Register = () => {
 									label='Worker'
 								/>
 							</RadioGroup>
-							<Button variant='contained' component='label'>
-								Upload File
-								<input type='file' hidden />
-							</Button>
+							<Grid item>
+								<TextField
+									error={error}
+									autoFocus
+									required
+									label='Upload your file'
+									variant='filled'
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									type='text'
+								/>
+								<Button
+									variant='contained'
+									component='label'
+									sx={{ maxHeight: '100px' }}
+								>
+									Upload File
+									<input type='file' hidden />
+								</Button>
+							</Grid>
 						</FormControl>
 
 						<CardActions sx={{ marginBottom: 2 }}>
