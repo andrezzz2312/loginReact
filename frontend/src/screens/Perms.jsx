@@ -24,14 +24,6 @@ import { cyan, teal, grey, white } from '@mui/material/colors'
 const Perms = () => {
 	const darkTheme = createTheme({
 		palette: {
-			editC: {
-				main: teal[500],
-				contrastText: '#fff',
-				'&:hover': {
-					backgroundColor: teal[800],
-				},
-			},
-
 			mode: 'dark',
 		},
 	})

@@ -126,6 +126,8 @@ const Login = () => {
 								<Grid container spacing={2}>
 									<Grid item xs={12}>
 										<TextField
+											required
+											autoFocus
 											error={error}
 											fullWidth
 											label='Email'
@@ -137,6 +139,7 @@ const Login = () => {
 									</Grid>
 									<Grid item xs={12}>
 										<TextField
+											required
 											error={error}
 											fullWidth
 											label='Contrasena'
