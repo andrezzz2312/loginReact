@@ -25,6 +25,8 @@ import {
 	FormControlLabel,
 	Radio,
 	FormLabel,
+	Snackbar,
+	Alert,
 } from '@mui/material'
 import { cyan, teal, grey, white } from '@mui/material/colors'
 import { Link } from 'react-router-dom'
@@ -51,6 +53,8 @@ const Register = () => {
 		'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
 	)
 	const [password, setPassword] = useState('')
+	const [temporal, setTemporal] = useState(true)
+	const [open, setOpen] = useState(true)
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const [role, setRole] = useState('')
 	const [message, setMessage] = useState(null)
@@ -61,6 +65,17 @@ const Register = () => {
 
 	const { loading, error, userInfo } = userRegister
 
+	useEffect(() => {
+		error && setTemporal(true)
+	}, [error])
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return
+		}
+
+		setOpen(false)
+	}
 	useEffect(() => {
 		if (userInfo && !error && userCheck) {
 			navigate('/main')
@@ -96,22 +111,23 @@ const Register = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data)
 					setPic(data.url.toString())
 				})
-				.catch((err) => {
-					console.log(err)
-				})
+				.catch((err) => {})
 		} else {
-			console.log(pics.type)
 			return setPicMessage('Please Select an Image')
 		}
 	}
+
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />
-			<Container maxWidth='xl' sx={{ pt: 2 }}>
-				<Card sx={{ boxShadow: 3 }} columns={{ sx: 12 }}>
+			<Container maxWidth='xl' sx={{}}>
+				<Card
+					sx={{ boxShadow: 3, mt: 2 }}
+					columns={{ sx: 12 }}
+					rows={{ sx: 12 }}
+				>
 					<CardContent>
 						<CardHeader
 							title='Registro'
@@ -132,117 +148,163 @@ const Register = () => {
 								</Button>
 							}
 						></CardHeader>
-						<FormControl>
-							<TextField
-								error={error}
-								autoFocus
-								required
-								label='Nombre'
-								variant='outlined'
-								value={name}
-								onChange={(e) => setName(e.target.value)}
-								type='text'
-							/>
-							<TextField
-								error={error}
-								autoFocus
-								required
-								label='Email'
-								variant='outlined'
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								type='email'
-							/>
-							<TextField
-								error={error}
-								autoFocus
-								required
-								label='Posicion'
-								variant='outlined'
-								value={position}
-								onChange={(e) => setPosition(e.target.value)}
-								type='text'
-							/>
-							<TextField
-								error={error}
-								autoFocus
-								required
-								label='Cedula'
-								variant='outlined'
-								value={idCard}
-								inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-								onChange={(e) => setidCard(e.target.value)}
-								type='number'
-							/>
-							<TextField
-								error={error}
-								autoFocus
-								required
-								label='Contrasena'
-								variant='outlined'
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								type='text'
-							/>
-							<TextField
-								error={error}
-								autoFocus
-								required
-								label='Confirmar Contrasena'
-								variant='outlined'
-								value={confirmPassword}
-								onChange={(e) => setConfirmPassword(e.target.value)}
-								type='text'
-							/>
-							<FormLabel id='demo-radio-buttons-group-label'>Role:</FormLabel>
-							<RadioGroup
-								aria-labelledby='demo-radio-buttons-group-label'
-								defaultValue='female'
-								name='radio-buttons-group'
-							>
-								<FormControlLabel
-									value='manager'
-									control={<Radio />}
-									label='Manager'
-								/>
-								<FormControlLabel
-									value='worker'
-									control={<Radio />}
-									label='Worker'
-								/>
-							</RadioGroup>
-							<Grid item>
-								<TextField
-									error={error}
-									autoFocus
-									required
-									label='Upload your file'
-									variant='filled'
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									type='text'
-								/>
-								<Button
-									variant='contained'
-									component='label'
-									sx={{ maxHeight: '100px' }}
-								>
-									Upload File
-									<input type='file' hidden />
-								</Button>
-							</Grid>
-						</FormControl>
+						<form onSubmit={submitHandler}>
+							<FormControl>
+								<Grid sx={{ display: 'flex', flexDirection: 'row' }}>
+									<Grid sx={{ display: 'flex', flexDirection: 'column' }}>
+										<TextField
+											sx={{ m: 1 }}
+											error={error && temporal ? true : false}
+											autoFocus
+											required
+											label='Nombre'
+											variant='outlined'
+											value={name}
+											onChange={(e) => {
+												setTemporal(false)
+												setName(e.target.value)
+											}}
+											type='text'
+										/>
+										<TextField
+											sx={{ m: 1 }}
+											error={error && temporal ? true : false}
+											autoFocus
+											required
+											label='Email'
+											variant='outlined'
+											value={email}
+											onChange={(e) => {
+												setTemporal(false)
+												setEmail(e.target.value)
+											}}
+											type='email'
+										/>
+										<TextField
+											sx={{ m: 1 }}
+											error={error && temporal ? true : false}
+											autoFocus
+											required
+											label='Posicion'
+											variant='outlined'
+											value={position}
+											onChange={(e) => {
+												setTemporal(false)
+												setPosition(e.target.value)
+											}}
+											type='text'
+										/>
+										<TextField
+											sx={{ m: 1 }}
+											error={error && temporal ? true : false}
+											autoFocus
+											required
+											label='Cedula'
+											variant='outlined'
+											value={idCard}
+											inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+											onChange={(e) => {
+												setTemporal(false)
+												setidCard(e.target.value)
+											}}
+											type='number'
+										/>
+										<TextField
+											sx={{ m: 1 }}
+											error={message && true}
+											autoFocus
+											required
+											label='Contrasena'
+											variant='outlined'
+											value={password}
+											onChange={(e) => {
+												setMessage(false)
+												setPassword(e.target.value)
+											}}
+											type='text'
+										/>
+										<TextField
+											sx={{ m: 1 }}
+											error={message && true}
+											autoFocus
+											required
+											label='Confirmar Contrasena'
+											variant='outlined'
+											value={confirmPassword}
+											onChange={(e) => {
+												setMessage(false)
+												setConfirmPassword(e.target.value)
+											}}
+											type='text'
+										/>
+										{message && <ErrorMessage>{message}</ErrorMessage>}
+									</Grid>
+									<Grid sx={{ display: 'flex', flexDirection: 'column', p: 1 }}>
+										<FormLabel id='demo-radio-buttons-group-label' sx={{}}>
+											Role:
+										</FormLabel>
+										<RadioGroup
+											aria-labelledby='demo-radio-buttons-group-label'
+											defaultValue='female'
+											name='radio-buttons-group'
+										>
+											<FormControlLabel
+												value='manager'
+												control={<Radio required />}
+												label='Manager'
+												onClick={(e) => {
+													setRole(e.target.value)
+												}}
+											/>
+											<FormControlLabel
+												value='worker'
+												control={<Radio required />}
+												label='Worker'
+												onClick={(e) => {
+													setRole(e.target.value)
+												}}
+											/>
+										</RadioGroup>
+										<Grid item sx={{ mt: 1 }}>
+											<Button
+												variant='contained'
+												component='label'
+												sx={{ minHeight: '55px' }}
+											>
+												Upload File
+												<input
+													type='file'
+													id='inputFile'
+													onChange={(e) => {
+														postDetails(e.target.files[0])
+														setImage(e.target.files[0].name)
+													}}
+													hidden
+												/>
+											</Button>
+											<TextField
+												variant='outlined'
+												value={image}
+												type='text'
+												disabled
+											/>
 
-						<CardActions sx={{ marginBottom: 2 }}>
-							<Button
-								component={Link}
-								to='/createnote'
-								variant='contained'
-								color='success'
-							>
-								Create new note
-							</Button>
-						</CardActions>
+											{picMessage && <ErrorMessage>{picMessage}</ErrorMessage>}
+										</Grid>
+									</Grid>
+								</Grid>
+								<CardActions sx={{ marginBottom: 2 }}>
+									<Button type='submit' color='success' variant='contained'>
+										Registro
+									</Button>
+									{error && temporal ? (
+										<ErrorMessage>{error}</ErrorMessage>
+									) : (
+										''
+									)}
+								</CardActions>
+							</FormControl>
+						</form>
 					</CardContent>
 				</Card>
 			</Container>

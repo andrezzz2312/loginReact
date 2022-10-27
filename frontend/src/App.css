@@ -6,8 +6,6 @@
 	box-sizing: border-box;
 }
 html {
-	width: 100vw;
-	height: 100vh;
 }
 * {
 	font-family: 'Roboto', sans-serif;
@@ -20,43 +18,14 @@ input[type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
-.mainButton {
-	padding: 1rem;
-	background: #3b3b3b;
-	border: none;
-	cursor: pointer;
-	width: 100%;
-}
 
 .normalButton:hover {
 	background-color: #303f9f;
 	color: white;
 }
-
-button:active {
-	box-shadow: none;
+.MuiCardContent-root:last-child {
+	padding-bottom: 0 !important;
 }
-.browseButton {
-	background-color: #3b3b3b;
-	border-radius: 0 0.5rem 0.5rem 0;
-}
-.loginButton {
-	/* margin-top: 0.5rem; */
-	padding: 0.5rem 1rem;
-	border: none;
-	border-radius: 0.5rem;
-	transition: all 0.2s ease-in-out;
-	width: 50%;
-}
-/* .left {
-	width: 50%;
-	max-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 1rem;
-} */
 .right {
 	width: 50%;
 	height: 100vh;
