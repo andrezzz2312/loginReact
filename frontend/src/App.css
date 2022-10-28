@@ -5,8 +5,7 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-html {
-}
+
 * {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
@@ -23,9 +22,7 @@ input[type='number']::-webkit-outer-spin-button {
 	background-color: #303f9f;
 	color: white;
 }
-.MuiCardContent-root:last-child {
-	padding-bottom: 0 !important;
-}
+
 .right {
 	width: 50%;
 	height: 100vh;

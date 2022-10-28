@@ -239,7 +239,14 @@ const Register = () => {
 										/>
 										{message && <ErrorMessage>{message}</ErrorMessage>}
 									</Grid>
-									<Grid sx={{ display: 'flex', flexDirection: 'column', p: 1 }}>
+									<Grid
+										sx={{
+											display: 'flex',
+											flexDirection: 'column',
+											p: 1,
+											pl: 2,
+										}}
+									>
 										<FormLabel id='demo-radio-buttons-group-label' sx={{}}>
 											Role:
 										</FormLabel>
@@ -265,7 +272,7 @@ const Register = () => {
 												}}
 											/>
 										</RadioGroup>
-										<Grid item sx={{ mt: 1 }}>
+										<Grid item sx={{ mt: 3 }}>
 											<Button
 												variant='contained'
 												component='label'
