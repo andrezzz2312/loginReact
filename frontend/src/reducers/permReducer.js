@@ -17,3 +17,17 @@ export const permListReducer = (state = { perms: [] }, action) => {
 			return state
 	}
 }
+
+export const permCreateReducer = (state = {}, action) => {
+	switch (action.type) {
+		case PERM_CREATE_REQUEST:
+			return { loading: true }
+		case PERM_CREATE_SUCCESS:
+			return { loading: false, success: true }
+		case PERM_CREATE_FAIL:
+			return { loading: false, error: action.payload }
+
+		default:
+			return state
+	}
+}
