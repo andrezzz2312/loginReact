@@ -3,7 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { permListReducer } from './reducers/permReducer'
+import { permCreateReducer, permListReducer } from './reducers/permReducer'
 // const store = configureStore({
 // 	// reducer,
 // 	// initialState,
@@ -15,6 +15,7 @@ const reducer = combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
 	permList: permListReducer,
+	permCreate: permCreateReducer,
 })
 const userInfoFromStorage = localStorage.getItem('userInfo')
 	? JSON.parse(localStorage.getItem('userInfo'))

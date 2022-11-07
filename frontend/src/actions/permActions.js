@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+	PERM_CREATE_REQUEST,
 	PERM_LIST_FAIL,
 	PERM_LIST_REQUEST,
 	PERM_LIST_SUCCESS,
@@ -34,5 +35,21 @@ export const listPerms = () => async (dispatch, getState) => {
 			type: PERM_LIST_FAIL,
 			payload: message,
 		})
+	}
+}
+
+export const createPermAction =
+// (poner aqui los campos que hacen falta para crear el permiso) 
+=> async (dispatch,getState) => {
+	try{
+		dispatch({
+			type:PERM_CREATE_REQUEST
+		})
+		const {
+			userLogin: {userInfo},
+
+		} = getState()
+
+		const config
 	}
 }
