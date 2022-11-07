@@ -84,76 +84,76 @@ const Perms = () => {
 							</Button>
 						</CardActions>
 						{/* {notes.map((note) => ( */}
-						<Accordion
-							sx={{
-								backgroundColor: grey[800],
-								borderRadius: 3,
-								'&:before': {
-									display: 'none',
-								},
-							}}
-						>
-							<AccordionSummary
-								aria-controls='panel1a-content'
-								id='panel1a-header'
+						<Grid>
+							<Accordion
 								sx={{
-									borderRadius: 3,
-									backgroundColor: grey[700],
+									backgroundColor: grey[800],
+									'&:before': {
+										display: 'none',
+									},
 								}}
 							>
-								<Grid
-									container
+								<AccordionSummary
+									aria-controls='panel1a-content'
+									id='panel1a-header'
 									sx={{
-										display: 'flex',
-										alignItems: 'center',
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-										alignContent: 'space-between',
+										backgroundColor: grey[700],
 									}}
 								>
-									<Typography>Accordion 1</Typography>
-									<CardActions>
-										<Button
-											// component={Link}
-											sx={{
-												backgroundColor: teal[500],
-												color: '#fff',
-												'&:hover': {
-													backgroundColor: teal[800],
-												},
-											}}
-											// to={`/note/${note._id}`}
-											variant='contained'
-										>
-											EDIT NOTE
-										</Button>
-										<Button
-											variant='contained'
-											color='error'
-											// onClick={() => deleteHandler(note._id)}
-										>
-											delete note
-										</Button>
-									</CardActions>
-								</Grid>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Grid>
-									<Chip
-										label='test'
-										color='success'
-										size='small'
-										sx={{ mb: 1, mt: 1 }}
-										className='chips'
-									/>
-									<Typography>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Suspendisse malesuada lacus ex, sit amet blandit leo
-										lobortis eget.
-									</Typography>
-								</Grid>
-							</AccordionDetails>
-						</Accordion>
+									<Grid
+										container
+										sx={{
+											display: 'flex',
+											alignItems: 'center',
+											flexDirection: 'row',
+											justifyContent: 'space-between',
+											alignContent: 'space-between',
+										}}
+									>
+										<Typography>Accordion 1</Typography>
+										<CardActions>
+											<Button
+												// component={Link}
+												sx={{
+													backgroundColor: teal[500],
+													color: '#fff',
+													'&:hover': {
+														backgroundColor: teal[800],
+													},
+												}}
+												// to={`/note/${note._id}`}
+												variant='contained'
+											>
+												EDIT NOTE
+											</Button>
+											<Button
+												variant='contained'
+												color='error'
+												// onClick={() => deleteHandler(note._id)}
+											>
+												delete note
+											</Button>
+										</CardActions>
+									</Grid>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Grid>
+										<Chip
+											label='test'
+											color='success'
+											size='small'
+											sx={{ mb: 2, mt: 1 }}
+											className='chips'
+										/>
+										<Typography>
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+											Suspendisse malesuada lacus ex, sit amet blandit leo
+											lobortis eget.
+										</Typography>
+									</Grid>
+								</AccordionDetails>
+							</Accordion>
+						</Grid>
 
 						{/* ))} */}
 					</CardContent>
