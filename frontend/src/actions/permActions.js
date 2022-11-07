@@ -5,7 +5,7 @@ import {
 	PERM_LIST_SUCCESS,
 } from '../constants/permConstants'
 
-export const listNodes = () => async (dispatch, getState) => {
+export const listPerms = () => async (dispatch, getState) => {
 	try {
 		dispatch({ type: PERM_LIST_REQUEST })
 
@@ -15,7 +15,7 @@ export const listNodes = () => async (dispatch, getState) => {
 
 		const config = {
 			headers: {
-				Authorization: `Bearer${userInfo.token}`,
+				Authorization: `Bearer ${userInfo.token}`,
 			},
 		}
 

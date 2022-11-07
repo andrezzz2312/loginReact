@@ -18,7 +18,6 @@ const createPerm = asyncHandler(async (req, res) => {
 			managerId: req.user._id,
 			managerName: req.user.name,
 			department,
-			solicitedDate: createdDt,
 			worker: req.worker._id,
 			workerIdCard: req.worker._id,
 			workerName: req.worker.name,

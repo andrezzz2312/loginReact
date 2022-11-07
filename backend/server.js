@@ -23,12 +23,12 @@ app.use(express.json())
 //   res.send('API is running....')
 // })
 
-// app.get('/api/notes', (req, res) => {
-//   res.json(notes)
+// app.get('/api/perms', (req, res) => {
+// 	res.json(perms)
 // })
 
 app.use('/api/users', userRoutes)
-app.use('/api/perm', permRoutes)
+app.use('/api/perms', permRoutes)
 
 // ----------- deployment -----------
 

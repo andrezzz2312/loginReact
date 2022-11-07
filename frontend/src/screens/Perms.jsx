@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Main from './Main'
-import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-	Box,
 	Button,
 	Card,
 	CardActions,
@@ -22,7 +19,10 @@ import {
 	Grid,
 } from '@mui/material'
 import { cyan, teal, grey, white } from '@mui/material/colors'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+import { listPerms } from '../actions/permActions'
+import Loading from '../components/Header/Loading.jsx'
+import ErrorMessage from '../components/Header/ErrorMessage.jsx'
 
 const Perms = () => {
 	const darkTheme = createTheme({
@@ -31,20 +31,36 @@ const Perms = () => {
 		},
 	})
 
-	// const dispatch = useDispatch()
-	// const permList = useSelector((state) => state.permList)
-	// const { loading, perms, error } = permList
+	const dispatch = useDispatch()
+	const permList = useSelector((state) => state.permList)
+	const { loading, perms, error } = permList
 
 	// const deleteHandler = (id) => {
 	// 	if (window.confirm('Are you sure?')) {
 	// 	}
 	// }
-	// useEffect(() => {
-	// 	dispatch(permList())
-	// }, [])
-	const deleteHandler = (id) => {
-		if (window.confirm('Are you sure?')) {
-		}
+	useEffect(() => {
+		dispatch(listPerms())
+	}, [dispatch])
+
+	if (perms) {
+		var dates = []
+		var apDates = []
+		perms.forEach((e, i) => {
+			var date = new Date(e.createdAt)
+			var apDate = new Date(e.approvedDate)
+
+			var fDate =
+				date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+			var fApDate =
+				apDate.getDate() +
+				'/' +
+				(apDate.getMonth() + 1) +
+				'/' +
+				apDate.getFullYear()
+			dates[i] = fDate
+			apDates[i] = fApDate
+		})
 	}
 
 	return (
@@ -83,79 +99,96 @@ const Perms = () => {
 								Create new note
 							</Button>
 						</CardActions>
-						{/* {notes.map((note) => ( */}
-						<Grid>
-							<Accordion
-								sx={{
-									backgroundColor: grey[800],
-									'&:before': {
-										display: 'none',
-									},
-								}}
-							>
-								<AccordionSummary
-									aria-controls='panel1a-content'
-									id='panel1a-header'
+						{error && <ErrorMessage>{error}</ErrorMessage>}
+						{loading && <Loading />}
+						{perms?.map((perm, index) => (
+							<Grid key={perm._id}>
+								<Accordion
 									sx={{
-										backgroundColor: grey[700],
+										backgroundColor: grey[800],
+										'&:before': {
+											display: 'none',
+										},
 									}}
 								>
-									<Grid
-										container
+									<AccordionSummary
+										aria-controls='panel1a-content'
+										id='panel1a-header'
 										sx={{
-											display: 'flex',
-											alignItems: 'center',
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-											alignContent: 'space-between',
+											backgroundColor: grey[700],
 										}}
 									>
-										<Typography>Accordion 1</Typography>
-										<CardActions>
-											<Button
-												// component={Link}
-												sx={{
-													backgroundColor: teal[500],
-													color: '#fff',
-													'&:hover': {
-														backgroundColor: teal[800],
-													},
-												}}
-												// to={`/note/${note._id}`}
-												variant='contained'
-											>
-												EDIT NOTE
-											</Button>
-											<Button
-												variant='contained'
-												color='error'
-												// onClick={() => deleteHandler(note._id)}
-											>
-												delete note
-											</Button>
-										</CardActions>
-									</Grid>
-								</AccordionSummary>
-								<AccordionDetails>
-									<Grid>
-										<Chip
-											label='test'
-											color='success'
-											size='small'
-											sx={{ mb: 2, mt: 1 }}
-											className='chips'
-										/>
-										<Typography>
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											Suspendisse malesuada lacus ex, sit amet blandit leo
-											lobortis eget.
-										</Typography>
-									</Grid>
-								</AccordionDetails>
-							</Accordion>
-						</Grid>
-
-						{/* ))} */}
+										<Grid
+											container
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												flexDirection: 'row',
+												justifyContent: 'space-between',
+												alignContent: 'space-between',
+											}}
+										>
+											<Typography sx={{ fontWeight: 'bold' }}>
+												{perm.workerName + ' - ' + dates[index]}
+											</Typography>
+											<CardActions>
+												<Button
+													// component={Link}
+													sx={{
+														backgroundColor: teal[500],
+														color: '#fff',
+														'&:hover': {
+															backgroundColor: teal[800],
+														},
+													}}
+													// to={`/note/${note._id}`}
+													variant='contained'
+												>
+													EDIT NOTE
+												</Button>
+												<Button
+													variant='contained'
+													color='error'
+													// onClick={() => deleteHandler(note._id)}
+												>
+													delete note
+												</Button>
+											</CardActions>
+										</Grid>
+									</AccordionSummary>
+									<AccordionDetails>
+										<Grid>
+											{/* <Chip
+												label='test'
+												// Category - {note.category}
+												color='success'
+												size='small'
+												sx={{ mb: 2, mt: 1 }}
+												className='chips'
+											/> */}
+											<Typography>
+												Departamento: {perm.department}
+												<br />
+												Posicion: {perm.workerPosition}
+												<br />
+												Horario Laboral: {perm.workerWorkHours}
+												<br />
+												Horas extra requeridas:
+												<br />
+												{perm.requestedHours.map((e, index) => `\u2022 ` + e)}
+												<br />
+												Fecha de aprobacion:{' '}
+												{apDates[index]
+													? apDates[index]
+													: 'No ha sido aprobado'}
+												<br />
+												Descripcion: {perm.description}
+											</Typography>
+										</Grid>
+									</AccordionDetails>
+								</Accordion>
+							</Grid>
+						))}
 					</CardContent>
 				</Card>
 			</Container>

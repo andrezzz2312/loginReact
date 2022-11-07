@@ -16,10 +16,7 @@ const permSchema = mongoose.Schema(
 			required: true,
 			ref: 'Manager',
 		},
-		solicitedDate: {
-			type: Date,
-			required: true,
-		},
+
 		worker: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
