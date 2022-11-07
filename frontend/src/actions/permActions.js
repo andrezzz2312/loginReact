@@ -40,7 +40,7 @@ export const listPerms = () => async (dispatch, getState) => {
 
 export const createPermAction =
 // (poner aqui los campos que hacen falta para crear el permiso) 
-=> async (dispatch,getState) => {
+(title,content,category) => async (dispatch,getState) => {
 	try{
 		dispatch({
 			type:PERM_CREATE_REQUEST
@@ -50,6 +50,12 @@ export const createPermAction =
 
 		} = getState()
 
-		const config
+		const config ={
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization : `Bearer ${userInfo.token}`
+			}
+		}
+		const {data}
 	}
 }
