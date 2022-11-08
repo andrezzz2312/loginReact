@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {
+	PERM_CREATE_FAIL,
 	PERM_CREATE_REQUEST,
+	PERM_CREATE_SUCCESS,
 	PERM_LIST_FAIL,
 	PERM_LIST_REQUEST,
 	PERM_LIST_SUCCESS,
@@ -39,23 +41,36 @@ export const listPerms = () => async (dispatch, getState) => {
 }
 
 export const createPermAction =
-// (poner aqui los campos que hacen falta para crear el permiso) 
-(title,content,category) => async (dispatch,getState) => {
-	try{
-		dispatch({
-			type:PERM_CREATE_REQUEST
-		})
-		const {
-			userLogin: {userInfo},
+	// (poner aqui los campos que hacen falta para crear el permiso)
+	(title, content, category) => async (dispatch, getState) => {
+		try {
+			dispatch({
+				type: PERM_CREATE_REQUEST,
+			})
+			const {
+				userLogin: { userInfo },
+			} = getState()
 
-		} = getState()
-
-		const config ={
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization : `Bearer ${userInfo.token}`
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${userInfo.token}`,
+				},
 			}
+			const { data } = await axios.post(
+				`/api/perms/create`,
+				{ title, content, category },
+				config
+			)
+			dispatch({ type: PERM_CREATE_SUCCESS, payload: data })
+		} catch (error) {
+			const message =
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message
+			dispatch({
+				type: PERM_CREATE_FAIL,
+				payload: message,
+			})
 		}
-		const {data}
 	}
-}

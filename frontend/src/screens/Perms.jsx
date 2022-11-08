@@ -92,7 +92,7 @@ const Perms = () => {
 						<CardActions sx={{ marginBottom: 2 }}>
 							<Button
 								component={Link}
-								to='/createnote'
+								to='/createperm'
 								variant='contained'
 								color='success'
 							>
