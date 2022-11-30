@@ -12,7 +12,7 @@ const Loading = () => {
 				height: 'max-content',
 			}}
 		>
-			<div class='loader'></div>
+			<div className='loader'></div>
 		</div>
 	)
 }

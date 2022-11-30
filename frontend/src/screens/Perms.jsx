@@ -144,14 +144,14 @@ const Perms = () => {
 													// to={`/note/${note._id}`}
 													variant='contained'
 												>
-													EDIT NOTE
+													EDIT
 												</Button>
 												<Button
 													variant='contained'
 													color='error'
 													// onClick={() => deleteHandler(note._id)}
 												>
-													delete note
+													delete
 												</Button>
 											</CardActions>
 										</Grid>
