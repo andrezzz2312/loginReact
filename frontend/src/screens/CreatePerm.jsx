@@ -30,6 +30,7 @@ import {
 } from '@mui/material'
 import { cyan, teal, grey, white } from '@mui/material/colors'
 import { Link } from 'react-router-dom'
+import { createPermAction } from '../actions/permActions'
 
 const CreatePerm = () => {
 	const darkTheme = createTheme({
@@ -44,11 +45,12 @@ const CreatePerm = () => {
 			navigate('/')
 		}
 	}, [navigate])
-	const [image, setImage] = useState('Upload Profile Picture')
-	const [email, setEmail] = useState('')
-	const [position, setPosition] = useState('')
+
+	const [workerWorkHours, setWorkerWorkHours] = useState('')
+	const [requestedHours, setRequestedHours] = useState([])
+	const [description, setDescription] = useState('')
 	const [idCard, setidCard] = useState('')
-	const [name, setName] = useState('')
+	const [department, setDepartment] = useState('')
 	const [pic, setPic] = useState(
 		'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
 	)
@@ -60,10 +62,12 @@ const CreatePerm = () => {
 	const [message, setMessage] = useState(null)
 	const [picMessage, setPicMessage] = useState(null)
 	const [userCheck, setUserCheck] = useState(false)
-	const dispatch = useDispatch()
 	const userRegister = useSelector((state) => state.userRegister)
+	const dispatch = useDispatch()
 
-	const { loading, error, userInfo } = userRegister
+	const permCreate = useSelector((state) => state.permCreate)
+
+	const { loading, error, userInfo } = permCreate
 
 	useEffect(() => {
 		error && setTemporal(true)
@@ -83,40 +87,23 @@ const CreatePerm = () => {
 		}
 	}, [navigate, userInfo, error, userCheck])
 
-	const submitHandler = async (e) => {
-		e.preventDefault()
-
-		if (password !== confirmPassword) {
-			setMessage('Password do not match')
-		} else {
-			setUserCheck(true)
-			dispatch(register(name, email, password, role, pic, position, idCard))
-		}
+	const resetHandler = () => {
+		setDepartment('')
+		setWorkerWorkHours('')
+		setRequestedHours('')
+		setDescription('')
 	}
 
-	const postDetails = (pics) => {
-		if (!pics) {
-			return setPicMessage('Please Select an Image')
-		}
-
-		setPicMessage(null)
-		if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
-			const data = new FormData()
-			data.append('file', pics)
-			data.append('upload_preset', 'wiretracker')
-			data.append('cloud_name', 'wireframeguayaquil')
-			fetch('https://api.cloudinary.com/v1_1/wireframeguayaquil/image/upload', {
-				method: 'post',
-				body: data,
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					setPic(data.url.toString())
-				})
-				.catch((err) => {})
-		} else {
-			return setPicMessage('Please Select an Image')
-		}
+	const submitHandler = (e) => {
+		e.preventDefault()
+		if (!department || !workerWorkHours || !requestedHours || !description)
+			return
+		setRequestedHours()
+		dispatch(
+			createPermAction(department, workerWorkHours, requestedHours, description)
+		)
+		resetHandler()
+		navigate('/main')
 	}
 
 	return (
@@ -148,6 +135,7 @@ const CreatePerm = () => {
 								</Button>
 							}
 						></CardHeader>
+
 						<form onSubmit={submitHandler}>
 							<FormControl>
 								<Grid sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -159,10 +147,10 @@ const CreatePerm = () => {
 											required
 											label='Departamento'
 											variant='outlined'
-											value={name}
+											value={department}
 											onChange={(e) => {
 												setTemporal(false)
-												setName(e.target.value)
+												setDepartment(e.target.value)
 											}}
 											type='text'
 										/>
@@ -171,12 +159,12 @@ const CreatePerm = () => {
 											error={error && temporal ? true : false}
 											autoFocus
 											required
-											label='Email'
+											label='Horario Laboral'
 											variant='outlined'
-											value={email}
+											value={workerWorkHours}
 											onChange={(e) => {
 												setTemporal(false)
-												setEmail(e.target.value)
+												setWorkerWorkHours(e.target.value)
 											}}
 											type='email'
 										/>
@@ -185,21 +173,21 @@ const CreatePerm = () => {
 											error={error && temporal ? true : false}
 											autoFocus
 											required
-											label='Posicion'
+											label='Horas extra requeridas'
 											variant='outlined'
-											value={position}
+											value={requestedHours}
 											onChange={(e) => {
 												setTemporal(false)
-												setPosition(e.target.value)
+												// setRequestedHours(e.target.value)
 											}}
 											type='text'
 										/>
-										<TextField
+										{/* <TextField
 											sx={{ m: 1 }}
 											error={error && temporal ? true : false}
 											autoFocus
 											required
-											label='Cedula'
+											label='Description'
 											variant='outlined'
 											value={idCard}
 											inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
@@ -208,8 +196,20 @@ const CreatePerm = () => {
 												setidCard(e.target.value)
 											}}
 											type='number'
-										/>
-										<TextField
+										/> */}
+										<textarea
+											id='message'
+											rows='4'
+											className='block p-2.5 m-2  w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus: ring-blue-500 focus: border-gray-500 dark: bg-gray-700 dark: border-gray-600 dark: placeholder-gray-400 dark: text-white dark: focus:ring-blue-500 dark: focus:border-blue-500'
+											placeholder='Descripcion'
+											value={description}
+											onChange={(e) => {
+												setTemporal(false)
+												setDescription(e.target.value)
+											}}
+										></textarea>
+
+										{/* <TextField
 											sx={{ m: 1 }}
 											error={message && true}
 											autoFocus
@@ -236,7 +236,7 @@ const CreatePerm = () => {
 												setConfirmPassword(e.target.value)
 											}}
 											type='text'
-										/>
+										/> */}
 										{message && <ErrorMessage>{message}</ErrorMessage>}
 									</Grid>
 									<Grid
@@ -247,7 +247,7 @@ const CreatePerm = () => {
 											pl: 2,
 										}}
 									>
-										<FormLabel id='demo-radio-buttons-group-label' sx={{}}>
+										{/* <FormLabel id='demo-radio-buttons-group-label' sx={{}}>
 											Role:
 										</FormLabel>
 										<RadioGroup
@@ -297,7 +297,7 @@ const CreatePerm = () => {
 											/>
 
 											{picMessage && <ErrorMessage>{picMessage}</ErrorMessage>}
-										</Grid>
+										</Grid> */}
 									</Grid>
 								</Grid>
 								<CardActions sx={{ marginBottom: 2 }}>
