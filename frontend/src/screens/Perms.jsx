@@ -52,14 +52,20 @@ const Perms = () => {
 
 			var fDate =
 				date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-			var fApDate =
-				apDate.getDate() +
-				'/' +
-				(apDate.getMonth() + 1) +
-				'/' +
-				apDate.getFullYear()
+			if (apDate.getDate()) {
+				var fApDate =
+					apDate.getDate() +
+					'/' +
+					(apDate.getMonth() + 1) +
+					'/' +
+					apDate.getFullYear()
+
+				apDates[i] = fApDate
+			} else {
+				apDates[i] = false
+			}
+
 			dates[i] = fDate
-			apDates[i] = fApDate
 		})
 	}
 

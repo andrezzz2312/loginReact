@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
+import './dist/output.css'
 import Login from './screens/Login'
 import Main from './screens/Main'
 import Register from './screens/Register'
@@ -21,4 +22,3 @@ function App() {
 }
 
 export default App
-
